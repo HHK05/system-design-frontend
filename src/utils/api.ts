@@ -1,11 +1,18 @@
 import axios from "axios";
 
+// Create an axios instance
 const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000",
 });
 
-export const registerUser = (data: { username: string; email: string; password: string }) =>
-  API.post("/auth/register", data);
+// Define the request payload type
+export interface RegisterPayload {
+  username: string;
+  email: string;
+  password: string;
+}
 
-export const loginUser = (data: { email: string; password: string }) =>
-  API.post("/auth/login", data);
+// Export API methods
+export const registerUser = (data: RegisterPayload) => API.post("/auth/register", data);
+
+export default API; // <-- important: so you can import API elsewhere if needed
