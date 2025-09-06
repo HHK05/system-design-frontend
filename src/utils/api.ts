@@ -1,7 +1,11 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://system-design-backend-13is.onrender.com/"
+  baseURL: import.meta.env.VITE_API_URL
 });
 
-export const getQuestions = () => API.get("/questions");
+export const registerUser = (data: { username: string; email: string; password: string }) =>
+  API.post("/auth/register", data);
+
+export const loginUser = (data: { email: string; password: string }) =>
+  API.post("/auth/login", data);
